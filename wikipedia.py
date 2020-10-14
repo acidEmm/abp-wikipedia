@@ -26,7 +26,12 @@ for row in originalData.head(10).itertuples():
   except Exception as e:
     print("Ha ocurrido un error "+str(e.__class__))
   
-  data.loc[len(data)]=[row[2], DATA['query']['pages'][list(DATA['query']['pages'].keys())[0]]['extract']]
+
+  if not DATA['query']['pages'][list(DATA['query']['pages'].keys())[0]]['extract']:
+    print ("No se ha encontrado descripción, varios", row[2], "posibles")
+  else:
+    data.loc[len(data)]=[row[2], DATA['query']['pages'][list(DATA['query']['pages'].keys())[0]]['extract']]
  
-data
+
 data.to_csv('data/personajes.csv')
+data
